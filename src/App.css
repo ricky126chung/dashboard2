@@ -28,14 +28,6 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 /*icon click*/
 .cursor-pointer{
   cursor: pointer;
@@ -67,8 +59,6 @@ a:hover{
   color:#000000
 }
 
-
-
 .dark{
   background-color: #282c34;
   color: #FFFFFF;
@@ -93,12 +83,22 @@ a:hover{
   border-color: #000000;
   color:#ffffff
 }
-@keyframes slide{
-  0% {transform: translateX(0px);}
-  100% {transform: translateX(1000px);}
+
+/*nav */
+@keyframes slideIn{
+  0% {transform: translateX(-500px);}
+  100% {transform: translateX(0px);}
 }
 
 .slide{
-  position:relative;
-  right: 1000px;
+  animation-name: slideIn;
+  animation-duration: 0.5s;
+  position:absolute;
+  animation-fill-mode: forwards;
 }
+
+.hidden{
+  left:-500px
+}
+
+

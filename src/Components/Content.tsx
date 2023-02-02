@@ -1,19 +1,24 @@
 import React, { useContext } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import {increment, selectCount} from '../Redux/slices/counterSlice';
-import { ThemeContext } from './Header';
-
+import { ThemeContext } from './PageStart';
+import {
+  Route,
+  Routes
+} from 'react-router-dom';
+import Home from '../Pages/Home';
+import Expense from '../Pages/Expense';
+import Setting from '../Pages/Setting';
 function Content() {
-  const count:number = useSelector(selectCount);
-  const dispatch = useDispatch();
-  const click=() =>{
-    return (dispatch(increment())) 
-  }
-  const darkTheme = useContext(ThemeContext)
+
   return (
-    <div className={`${darkTheme}`}>
-      <div>Number: {count}</div>
-      <button onClick={click} className="btn btn-light">Add 1</button>
+    <div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path='/Expense' element={<Expense />} />
+        <Route path='/Setting' element={<Setting />} />
+        <Route path="/Exit" />
+      </Routes>
     </div>
   )
 }

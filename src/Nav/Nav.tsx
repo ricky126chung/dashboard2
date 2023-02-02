@@ -1,14 +1,14 @@
 import React, { useContext } from 'react'
-import { ThemeContext } from '../Components/Header'
+import { ThemeContext } from '../Components/PageStart'
 import {
     NavLink,
     useLocation 
   } from 'react-router-dom';
-function Nav({slide}:any) {
+function Nav() {
     const darkTheme = useContext(ThemeContext)
     const currentRoute:string = useLocation().pathname;
   return (
-    <div className={slide?`container slide ${darkTheme}`:  `container slide ${darkTheme}`}>
+    <div className={`vw-25 ${darkTheme}`}>
         <div className="list-group">
             <NavLink to="/"><li className={(currentRoute=="/")?'list-group-item list-group-item-action active':'list-group-item list-group-item-action'}>Home</li></NavLink>
             <NavLink to="/Expense"><li className={(currentRoute=="/Expense")?'list-group-item list-group-item-action active':'list-group-item list-group-item-action'}>Expense</li></NavLink>
