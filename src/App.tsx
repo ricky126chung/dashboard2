@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
-import Content from './Components/Content';
-import PageStart from './Components/PageStart';
+import Content from './Layout/Content';
+import PageStart from './Layout/PageStart';
 
 function App() {
   return (

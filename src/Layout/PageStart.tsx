@@ -9,6 +9,8 @@ function PageStart() {
   const [switchDarkTheme,setSwitchDarkTheme] = useState(true) //default is dark theme
   const [theme,setThemeClass] =useState('dark') // default is dark theme (dark||light)
   const [slideNav, setSlideNav] = useState(false)
+  const [firstRender, setFirstRender] = useState(true)
+  
   const switchTheme = () =>{
     switchDarkTheme?setSwitchDarkTheme(false):setSwitchDarkTheme(true)
     switchDarkTheme?setThemeClass('light'):setThemeClass('dark')
@@ -18,6 +20,7 @@ function PageStart() {
   }
   const slideOut = () =>{
     setSlideNav(false)
+    setFirstRender(false)
   }
   useEffect(() => {
     document.body.className=theme
@@ -34,8 +37,8 @@ function PageStart() {
         </div>
       </div>
       <ThemeContext.Provider value={theme}>
-        <div className={slideNav?'slide position-absolute col-sm-3':'position-absolute hidden col-sm-3'} onMouseEnter={slideIn} onMouseLeave={slideOut} onClick={slideOut}>
-          <Nav  />
+        <div className={slideNav?'position-absolute slide col-sm-3': firstRender?'position-absolute hidden col-sm-3':'position-absolute slideBack col-sm-3'} onMouseEnter={slideIn} onMouseLeave={slideOut} onClick={slideOut}>
+        <Nav  />
         </div>
         <div className=''>
           <Content />

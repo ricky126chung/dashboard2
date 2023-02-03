@@ -1,8 +1,11 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
+import { selectCount } from '../Redux/slices/counterSlice';
 
 function Expense() {
+  const count:number = useSelector(selectCount);
   return (
-    <div>Expense</div>
+    <div>Expense {count}</div>
   )
 }
 

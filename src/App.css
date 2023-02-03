@@ -28,6 +28,7 @@
   color: #61dafb;
 }
 
+
 /*icon click*/
 .cursor-pointer{
   cursor: pointer;
@@ -56,7 +57,8 @@ a:hover{
 .light .list-group-item.list-group-item-action.active{
   background-color:#ececec;
   border-color: #000000;
-  color:#000000
+  color:#000000;
+  z-index:9;
 }
 
 .dark{
@@ -73,6 +75,8 @@ a:hover{
 .dark li{
   background-color:#1f2329;
   color: #FFFFFF;
+  z-index: 9;
+
 }
 .dark li:hover{
   background-color:#000000;
@@ -81,13 +85,20 @@ a:hover{
 .dark .list-group-item.list-group-item-action.active{
   background-color:#000000;
   border-color: #000000;
-  color:#ffffff
+  color:#ffffff;
+  
 }
 
 /*nav */
 @keyframes slideIn{
   0% {transform: translateX(-500px);}
   100% {transform: translateX(0px);}
+  
+}
+
+@keyframes slideBk{
+  0% {transform: translateX(0);}
+  100% {transform: translateX(-500px);}
 }
 
 .slide{
@@ -95,10 +106,47 @@ a:hover{
   animation-duration: 0.5s;
   position:absolute;
   animation-fill-mode: forwards;
+  z-index: 8;
+}
+
+.slideBack{
+  animation-name: slideBk;
+  animation-duration: 0.5s;
+  position:absolute;
+  animation-fill-mode: forwards;
+  z-index: 8;
 }
 
 .hidden{
   left:-500px
 }
 
+@keyframes houseLight{
+  0% {transform: translateX(100vw);}
+  100% {transform: translateX(-100vw);}
+  
+}
+
+@keyframes houseLight2{
+  0% {transform: translateX(0vw);}
+  100% {transform: translateX(-200vw);}
+  
+} 
+
+.scroll{
+  animation-name:houseLight;
+  animation-duration: 30s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  z-index: 7;
+}
+
+.scroll2{
+  animation-name:houseLight2;
+  animation-duration: 30s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-delay: 15s;
+  z-index: 7;
+}
 
