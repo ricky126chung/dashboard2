@@ -7,20 +7,21 @@ import { Doughnut } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 export const data = {
-    labels: ['Red', 'Blue'],
+    labels: ['Income', 'Expense'],
     datasets: [
       {
         label: '# of Votes',
-        data: [12, 19],
+        data: [19000,13245 ],
         backgroundColor: [
+        'rgba(54, 162, 235, 0.6)',
           'rgba(255, 99, 132, 0.6)',
-          'rgba(54, 162, 235, 0.6)',
+          
 
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
           'rgba(54, 162, 235, 1)',
-
+          'rgba(255, 99, 132, 1)',
+        
         ],
         borderWidth: 1,
       },
@@ -62,7 +63,7 @@ function Home() {
         }
     }
     return (
-        <div className={`${theme}`}>
+        <div className={`${theme} overflow-hidden`}>
             {nsbStatus?
             <div className={` d-flex pt-1 justify-content-between border-bottom border-2 border-secondary-1 bar ${theme}`}>
                 <div className='col-sm-12 d-flex  scroll justify-content-around'>
@@ -94,29 +95,29 @@ function Home() {
                             <table className={theme=="dark"?"table table-dark table-striped table-bordered":"table table-striped table-bordered" }>
                                 <thead>
                                     <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">First</th>
-                                    <th scope="col">Last</th>
-                                    <th scope="col">Handle</th>
+                                        <th scope="col">#</th>
+                                        <th scope="col">First</th>
+                                        <th scope="col">Last</th>
+                                        <th scope="col">Handle</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
+                                        <th scope="row">1</th>
+                                        <td>Mark</td>
+                                        <td>Otto</td>
+                                        <td>@mdo</td>
                                     </tr>
                                     <tr>
                                     <th scope="row">2</th>
-                                    <td>Jacob</td>
-                                    <td>Thornton</td>
-                                    <td>@fat</td>
+                                        <td>Jacob</td>
+                                        <td>Thornton</td>
+                                        <td>@fat</td>
                                     </tr>
                                     <tr>
-                                    <th scope="row">3</th>
-                                    <td colSpan={2}>Larry the Bird</td>
-                                    <td>@twitter</td>
+                                        <th scope="row">3</th>
+                                        <td colSpan={2}>Larry the Bird</td>
+                                        <td>@twitter</td>
                                     </tr>
                                 </tbody>
                             </table>
