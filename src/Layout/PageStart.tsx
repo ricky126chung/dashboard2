@@ -27,7 +27,7 @@ function PageStart() {
   }, [theme,slideNav]);
   return (
     <div>
-      <div className={`container-fluid pt-2 d-flex justify-content-between border-bottom border-4 border-secondary-1 bar ${theme}`}>
+      <div className={`container-fluid pt-2 d-flex justify-content-between border-bottom border-2 border-secondary-1 bar ${theme}`}>
         <div className='pt-1 ps-3'>
           <AiOutlineMenu className='cursor-pointer menuIcon' onMouseEnter={slideIn}/>
         </div>
