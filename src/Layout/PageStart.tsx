@@ -3,6 +3,7 @@ import {BsFillSunFill,BsMoon} from  'react-icons/bs'
 import {AiOutlineMenu} from 'react-icons/ai'
 import Content from './Content'
 import Nav from '../Nav/Nav'
+import Footer from './Footer'
 
 export const ThemeContext = React.createContext("default")
 function PageStart() {
@@ -43,6 +44,7 @@ function PageStart() {
         <div className=''>
           <Content />
         </div>
+        <Footer />
       </ThemeContext.Provider>
     </div>
   )

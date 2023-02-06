@@ -54,6 +54,9 @@ a:hover{
 .light.bar{
   background-color:#f1f1f1;
 }
+.light li{
+  list-style: none;
+}
 .light .list-group-item.list-group-item-action.active{
   background-color:#ececec;
   border-color: #000000;
@@ -69,6 +72,10 @@ a:hover{
 .light .table.table-bordered{
   border:1px solid grey;
 }
+.light .cursor-pointer{
+  background-color: white;
+}
+
 
 .dark{
   background-color: #282c34;
@@ -81,14 +88,20 @@ a:hover{
 .dark.bar{
   background-color:#111316;
 }
-.dark li{
+.dark .list-group li{
   background-color:#1f2329;
   color: #FFFFFF;
   z-index: 9;
-
+}
+.dark .list-group li:hover{
+  background-color:#000000;
+  color: #FFFFFF;
+}
+.dark li{
+  list-style: none;
 }
 .dark li:hover{
-  background-color:#000000;
+  background-color:#2c3038;
   color: #FFFFFF;
 }
 .dark .list-group-item.list-group-item-action.active{
@@ -106,8 +119,9 @@ a:hover{
 .dark .table.table-bordered{
   border:1px solid grey;
 }
-
-
+.dark .cursor-pointer{
+  background-color: #111316;
+}
 /*nav */
 @keyframes slideIn{
   0% {transform: translateX(-500px);}
@@ -153,19 +167,19 @@ a:hover{
 } 
 
 .scroll{
-  /*animation-name:houseLight;*/
-  animation-duration: 40s;
+  animation-name:houseLight;
+  animation-duration: 60s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   z-index: 7;
 }
 
 .scroll2{
-  /*animation-name:houseLight2;*/
-  animation-duration: 40s;
+  animation-name:houseLight2;
+  animation-duration: 60s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
-  animation-delay: 20s;
+  animation-delay: 30s;
   z-index: 7;
 }
 

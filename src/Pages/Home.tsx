@@ -1,11 +1,22 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import {increment, selectCount} from '../Redux/slices/counterSlice';
 import { ThemeContext } from '../Layout/PageStart';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend,CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title, } from 'chart.js';
+import { Doughnut,Line } from 'react-chartjs-2';
+import axios from 'axios';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend,CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend);
+
 export const data = {
     labels: ['Income', 'Expense'],
     datasets: [
@@ -30,10 +41,19 @@ export const data = {
 
 
 function Home() {
-    const count:number = useSelector(selectCount);
-    const nsbStatus:boolean = useSelector((state:any) => state.stockItem.stockBar )
-    const dispatch = useDispatch();
+    const sbStatus:boolean = useSelector((state:any) => state.stockItem.stockBar )
+    const stStatus:boolean=useSelector((state:any) => state.stockItem.stockTable)
     const theme = useContext(ThemeContext)
+    ChartJS.defaults.color=theme=="dark"?"white":"black"
+        const fetchData = async() =>{
+            
+        const {data} = await axios.get("/api")
+        setAAPL_Stock(data["AAPL"].hist.map((x:any)=>x.close.toFixed(2)))
+        setTSLA_Stock(data["TSLA"].hist.map((x:any)=>x.close.toFixed(2)))
+        setAAPL_Price(data["AAPL"].curr.Price)
+        setAAPL_Percent(data["AAPL"].curr.Percent)
+        console.log(data["AAPL"].curr)
+    }
     const pieOption:any = {
         responsive: true,
         plugins: {
@@ -62,9 +82,78 @@ function Home() {
             },
         }
     }
+    const pieText:any = {
+        id:"textCenter",
+        beforeDatasetsDraw(chart:any, args:any, pluginOptions:any){
+            const {ctx, data}= chart
+            ctx.save();
+            ctx.font = "bolder 13px sans-serif"
+            ctx.fillStyle = "white"
+            ctx.textAlign = "center"
+            ctx.fillText("Remain: $"+`${data.datasets[0].data[0]-data.datasets[0].data[1]}`,chart.getDatasetMeta(0).data[0].x, chart.getDatasetMeta(0).data[0].y)
+        }
+    }
+
+    const [AAPL_Stock,setAAPL_Stock] = useState([0])
+    const [TSLA_Stock,setTSLA_Stock] = useState([0])
+    const [AAPL_Price, setAAPL_Price] = useState(0)
+    const [AAPL_Percent, setAAPL_Percent] = useState(0)
+    const labels:string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July','Augest','Setember','October','November','December'];
+    const MonthlyData: any = {
+        labels,
+        datasets: [
+            {
+                label: 'AAPL',
+                data: AAPL_Stock,
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            },
+            {
+                label: 'TSLA',
+                data: TSLA_Stock,
+                borderColor: 'rgb(53, 162, 235)',
+                backgroundColor: 'rgba(53, 162, 235, 0.5)',
+            },
+        ],
+    };
+    const loptions: any = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            maintainAspectRatio: false,
+            title: {
+                display: true,
+                text: 'Monthly Chart on 2023',
+                color: "#000000",
+                font: {
+                    family: "AvenirNextLTW01-Regular",
+                    size: 16,
+                    style: 'normal'
+                }
+            },
+        },
+        scales:{
+            x: {
+                grid:{
+                    color: "#808080"
+                }
+            },
+            y:{
+                grid:{
+                    color: "#808080"
+                }
+            }
+        }
+    };
+
+    useEffect(()=>{
+        fetchData()
+    },[])
     return (
         <div className={`${theme} overflow-hidden`}>
-            {nsbStatus?
+            {sbStatus?
             <div className={` d-flex pt-1 justify-content-between border-bottom border-2 border-secondary-1 bar ${theme}`}>
                 <div className='col-sm-12 d-flex  scroll justify-content-around'>
                     <h6 className='fw-bold align-self-center text-danger'>HSI : 22442 (-2.56%)</h6>
@@ -85,13 +174,29 @@ function Home() {
             <div className='container-fluid pt-3'>
                 <div className='row'>
                     <div className='col-sm-4'>
-                        <div className={`${theme} block p-5 rounded-5`}>
-                            <h5 className='text-decoration-underline'>Statistics of Personal Finance </h5>
-                            <Doughnut data={data} options={pieOption} />
+                        <div className={`${theme} block p-5 rounded-5 h-100`}>
+                            <h5 className='text-decoration-underline'>Ratio of Income and Expense </h5>
+                            <Doughnut data={data} options={pieOption} 
+                            plugins ={[pieText]}/>
                         </div>
                     </div>
                     <div className='col-sm-8 '>
+                        {stStatus?
+                        <div className={`${theme} px-5 py-4 rounded-5 mb-3 d-flex flex-column align-items-start block`}>
+                            <ul className={theme=="dark"?"border p-3 cursor-pointer":"border border-2 cursor-pointer" }>
+                                <li className='fw-bold text-danger'>HSI : 22442 (-2.56%)</li>
+                                <li className='fw-bold text-success'>AAPL : {AAPL_Price} {AAPL_Percent>0?"+":"-"}{AAPL_Percent}%</li>
+                                <li className='fw-bold text-danger'>DOJ : 34054 (-1.56%)</li>
+                                <li className='fw-bold text-normal'>NKE : 129.06 (0.00%)</li>
+                                <li className='fw-bold text-success'>TSLA : 175.02 (+1.26%)</li>
+                            </ul>
+                        </div>:""}
+                        <div className={`${theme} block p-5 rounded-5 mb-3`}>
+                            <h5 className='text-decoration-underline'>Monthly Chart of profit in Stock </h5>
+                            <Line data={MonthlyData} options={loptions}/>
+                        </div>
                         <div className={`${theme} block p-5 rounded-5`}>
+                            <h5 className='text-decoration-underline'>Summary of Personal Finance</h5>
                             <table className={theme=="dark"?"table table-dark table-striped table-bordered":"table table-striped table-bordered" }>
                                 <thead>
                                     <tr>

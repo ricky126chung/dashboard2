@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    stockBar:true,
-    stockTable:false
+    stockBar:false,
+    stockTable:true,
   };
 
     const SISlice = createSlice({
