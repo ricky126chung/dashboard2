@@ -48,11 +48,13 @@ function Home() {
         const fetchData = async() =>{
             
         const {data} = await axios.get("/api")
-        setAAPL_Stock(data["AAPL"].hist.map((x:any)=>x.close.toFixed(2)))
+        console.log(data)
+        setMSFT_Stock(data["MSFT"].hist.map((x:any)=>x.close.toFixed(2)))
         setTSLA_Stock(data["TSLA"].hist.map((x:any)=>x.close.toFixed(2)))
-        setAAPL_Price(data["AAPL"].curr.Price)
-        setAAPL_Percent(data["AAPL"].curr.Percent)
-        console.log(data["AAPL"].curr)
+        setMSFT_Price(data["MSFT"].curr.Price)
+        setMSFT_Percent(data["MSFT"].curr.Percent)
+        setTSLA_Price(data["TSLA"].curr.Price)
+        setTSLA_Percent(data["TSLA"].curr.Percent)
     }
     const pieOption:any = {
         responsive: true,
@@ -94,17 +96,19 @@ function Home() {
         }
     }
 
-    const [AAPL_Stock,setAAPL_Stock] = useState([0])
+    const [MSFT_Stock,setMSFT_Stock] = useState([0])
     const [TSLA_Stock,setTSLA_Stock] = useState([0])
-    const [AAPL_Price, setAAPL_Price] = useState(0)
-    const [AAPL_Percent, setAAPL_Percent] = useState(0)
+    const [MSFT_Price, setMSFT_Price] = useState(0)
+    const [MSFT_Percent, setMSFT_Percent] = useState(0)
+    const [TSLA_Price, setTSLA_Price] = useState(0)
+    const [TSLA_Percent, setTSLA_Percent] = useState(0)
     const labels:string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July','Augest','Setember','October','November','December'];
     const MonthlyData: any = {
         labels,
         datasets: [
             {
-                label: 'AAPL',
-                data: AAPL_Stock,
+                label: 'MSFT',
+                data: MSFT_Stock,
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
@@ -125,12 +129,12 @@ function Home() {
             maintainAspectRatio: false,
             title: {
                 display: true,
-                text: 'Monthly Chart on 2023',
-                color: "#000000",
+                text:'Monthly Chart in 2023',
+                color: "#FFFFFF",
                 font: {
                     family: "AvenirNextLTW01-Regular",
-                    size: 16,
-                    style: 'normal'
+                    size: 20,
+                    style: 'bold'
                 }
             },
         },
@@ -157,14 +161,14 @@ function Home() {
             <div className={` d-flex pt-1 justify-content-between border-bottom border-2 border-secondary-1 bar ${theme}`}>
                 <div className='col-sm-12 d-flex  scroll justify-content-around'>
                     <h6 className='fw-bold align-self-center text-danger'>HSI : 22442 (-2.56%)</h6>
-                    <h6 className='fw-bold align-self-center text-success'>AAPL : 150.82 (+1.36%)</h6>
+                    <h6 className='fw-bold align-self-center text-success'>MSFT : 150.82 (+1.36%)</h6>
                     <h6 className='fw-bold align-self-center text-danger'>DOJ : 34054 (-1.56%)</h6>
                     <h6 className='fw-bold align-self-center text-normal'>NKE : 129.06 (0.00%)</h6>
                     <h6 className='fw-bold align-self-center text-success'>TSLA : 175.02 (+1.26%)</h6>
                 </div>
                 <div className='col-sm-12 d-flex scroll2 justify-content-around'>
                     <h6 className='fw-bold align-self-center text-danger'>HSI : 22442 (-2.56%)</h6>
-                    <h6 className='fw-bold align-self-center text-success'>AAPL : 150.82 (+1.36%)</h6>
+                    <h6 className='fw-bold align-self-center text-success'>MSFT : 150.82 (+1.36%)</h6>
                     <h6 className='fw-bold align-self-center text-danger'>DOJ : 34054 (-1.56%)</h6>
                     <h6 className='fw-bold align-self-center text-normal'>NKE : 129.06 (0.00%)</h6>
                     <h6 className='fw-bold align-self-center text-success'>TSLA : 175.02 (+1.26%)</h6>
@@ -182,17 +186,25 @@ function Home() {
                     </div>
                     <div className='col-sm-8 '>
                         {stStatus?
-                        <div className={`${theme} px-5 py-4 rounded-5 mb-3 d-flex flex-column align-items-start block`}>
-                            <ul className={theme=="dark"?"border p-3 cursor-pointer":"border border-2 cursor-pointer" }>
-                                <li className='fw-bold text-danger'>HSI : 22442 (-2.56%)</li>
-                                <li className='fw-bold text-success'>AAPL : {AAPL_Price} {AAPL_Percent>0?"+":"-"}{AAPL_Percent}%</li>
-                                <li className='fw-bold text-danger'>DOJ : 34054 (-1.56%)</li>
-                                <li className='fw-bold text-normal'>NKE : 129.06 (0.00%)</li>
-                                <li className='fw-bold text-success'>TSLA : 175.02 (+1.26%)</li>
-                            </ul>
+                        <div className={`${theme} px-5 pb-4 rounded-5 mb-3 block `}>
+                            
+                            <div className='row align-items-center'>
+                                <div className='col-sm-5 pt-5 '>
+                                    <ul className={theme=="dark"?"border p-3 cursor-pointer":"border border-2 cursor-pointer" }>
+                                        <li className='fw-bold text-danger'>HSI : 22442 (-2.56%)</li>
+                                        <li className='fw-bold text-success'>MSFT : {MSFT_Price} {MSFT_Percent>0?"+":"-"}{MSFT_Percent}%</li>
+                                        <li className='fw-bold text-danger'>DOJ : 34054 (-1.56%)</li>
+                                        <li className='fw-bold text-normal'>NKE : 129.06 (0.00%)</li>
+                                        <li className='fw-bold text-success'>MSFT : {TSLA_Price} {TSLA_Percent>0?"+":"-"}{TSLA_Percent}%</li>
+                                    </ul>
+                                </div>
+                                <div className='col-sm-7 pt-2'>
+                                    <Line className=''  data={MonthlyData} options={loptions}/>
+                                </div>
+                            </div>
                         </div>:""}
                         <div className={`${theme} block p-5 rounded-5 mb-3`}>
-                            <h5 className='text-decoration-underline'>Monthly Chart of profit in Stock </h5>
+                            {/*<h5 className='text-decoration-underline'>Monthly Chart in 2023 </h5>*/}
                             <Line data={MonthlyData} options={loptions}/>
                         </div>
                         <div className={`${theme} block p-5 rounded-5`}>
